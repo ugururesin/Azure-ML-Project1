@@ -14,24 +14,31 @@ We followed two different approaches. One through `hyperdrive` and another with 
 ![Pipeline Diagram](pipeline.jpg?raw=true)
 
 ## Scikit-learn Pipeline
-Scikit-learn pipeline is pretty straightforward and self-explanatory. For this we wrote a script called `train.py` where we defined a datastore with `TabularDatasetFactory` to read delimitted file. Then there was a `clean_data` function to
+Scikit-learn pipeline is pretty straightforward and self-explanatory. For this we wrote a script called `train.py` where we defined a datastore with `TabularDatasetFactory` to read delimitted file. Then there was a `clean_data` function that conduct the following data wrangling operations:
 
-  - Removing NA's from the data
-  - Doing encode for categorical values
-  - Transforming values to desired form and others.
+1. Removing NA's from the data  
+2. Doing encode for categorical values  
+3. Transforming values to desired form and others
   
-After doing the cleaning part we splitted the data to training and test. We used `Logistic Regression` as a classification algorithm and defined arguments `c` and `max_iter` so that we can experiment hyper parameters with hyperdrive. 
+After completing the cleaning part, the data is splitted into training and test. As a classification algorithm `Logistic Regression` is used, then `c` and `max_iter` parameters were defined in order to experiment hyper parameters with hyperdrive. 
 
-As a parameter sampler I used `RandomParameterSampling` with `uniform` and `quniform` where I had the opportunity to uniformly sampling from min `0` to max `20` for `c` hyperparameter and for `max_iter` I could set min `10` to max `250` with increment value `1`. 
+As a parameter sampler, the `RandomParameterSampling` is used with the following parameters:  
+**C** :(0.01,0.1,1,5,20,100)  
+**max_iter** : (10,50,100)  
 
-The reason behind choosing `RandomParameterSampling` is that it is way faster than other samplers as it doesn't require pre-specified values for its search space and can traverse randomly to find the optimal value which often finds the ideal one which leads to early termination.
+`RandomParameterSampling` provides faster sampling due to the fact that it does not require pre-specified values for its search space and can traverse randomly to find the optimal value which often finds the ideal one which leads to early termination.
 
-I defined the `BanditPolicy` with `evaluation_interval=1`, `delay_evaluation=5`, `slack_factor = 0.2` because it terminates all the models worse than the current best model based on the prmiary metrics. This is slightly better with flexibility than other policies.
+The `BanditPolicy` is defined with evaluation_interval = 1, slack_factor= 0.1 in order to terminates all the models worse than the current best model based on the prmiary metrics.
 
-With this pipeline I got accuracy `0.9153262518968134` for this dataset.
+![hyperdrive1](HyperDrive_run1.JPG?raw=true)
+![hyperdrive2](HyperDrive_run1.JPG?raw=true)
+
+This pipeline yielded the following accuracy score: 0.9176024279210926
 
 ## AutoML
 Using `Automl` several algorithms are fitted and the **METRIC**s (the result of computing score on the fitted pipeline) are compared as shown in the table below.
+
+![automl_table](automl_results.JPG?raw=true)
 
 ## Pipeline comparison
 | Model | Accuracy |
@@ -42,4 +49,4 @@ Using `Automl` several algorithms are fitted and the **METRIC**s (the result of 
 First of all, it should be noted that the accuries always be different due to randomization in data sampling and fitting. Based on the results, the difference between Hyperdrive and Automl is worth to consider however it should be considered that the number of iterations was limited to due to time constraint. In general, 'Automl' is expected to yield better results especially in the case of the data is imbalanced.
 
 ## Proof of cluster clean up
-![Cleanup](cleanup.jpg?raw=true)
+![Cleanup](cleanup.JPG?raw=true)
