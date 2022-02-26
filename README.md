@@ -31,15 +31,16 @@ I defined the `BanditPolicy` with `evaluation_interval=1`, `delay_evaluation=5`,
 With this pipeline I got accuracy `0.9153262518968134` for this dataset.
 
 ## AutoML
-Using `Automl` I found most intuitive, I just defined the data store with `TabularDatasetFactory` and passed the data to `clean_data` function and concated the data to `pandas` dataframe. After that defined the `automl_config` for `tasks`, `primary_metric` and others and then experiment the run. With logs I could see all the pipeline steps, models and their metrics. Then I could also get the best child to save the best model.
+Using `Automl` several algorithms are fitted and the **METRIC**s (the result of computing score on the fitted pipeline) are compared as shown in the table below.
 
 ## Pipeline comparison
 | Model | Accuracy |
 |-|-|
-| Hyperdrive | 0.9153262518968134 |
-| Automl | 0.9161 |
+| Hyperdrive | 0.9176 |
+| Automl | 0.9471 |
 
-I believe difference is trivial in accuracy and if we talk about architecture `automl` is intuitive and it uses several preprocessing steps with model variations where in hyperdrive we only tune logistic regression with predefined processing. For more imbalanced and unseen data automl would do well then hyperdrive.
+First of all, it should be noted that the accuries always be different due to randomization in data sampling and fitting. Based on the results, the difference between Hyperdrive and Automl is worth to consider however it should be considered that the number of iterations was limited to due to time constraint. In general, 'Automl' is expected to yield better results especially in the case of the data is imbalanced.
 
-## Future work
-Future improvements need borader exposer to hyperdrie and automl. We could only use one algorithm for `hyperdrive` exploration where we had time constraint for `automl`. Besides automated feature engineering can be done to see if it does better than the `clean_data` function. May be another imbalanced data set can be tested with above setup as well. 
+## Proof of cluster clean up
+**If you did not delete your compute cluster in the code, please complete this section. Otherwise, delete this section.**
+**Image of cluster marked for deletion**
