@@ -1,3 +1,7 @@
+import sys
+import subprocess
+subprocess.check_call([sys.executable, '-m', 'pip', 'install', 'pandas'])
+
 from sklearn.linear_model import LogisticRegression
 import argparse
 import os
@@ -39,6 +43,20 @@ def clean_data(data):
     return x_df,y_df
 
 
+# TODO: Create TabularDataset using TabularDatasetFactory
+# Data is located at:
+# "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
+ds = TabularDatasetFactory.from_delimited_files(['https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv'])
+
+# Calling the clean_data func
+x, y = clean_data(ds)
+
+# TODO: Split data into train and test sets.
+# Documentation: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
+x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
+
+run = Run.get_context() #ADDED-HERE
+
 def main():
     # Add arguments to script
     parser = argparse.ArgumentParser()
@@ -48,29 +66,14 @@ def main():
 
     args = parser.parse_args()
 
-    run = Run.get_context() #ADDED-HERE
-
     run.log("Regularization Strength:", np.float(args.C))
     run.log("Max iterations:", np.int(args.max_iter))
-
-    # TODO: Create TabularDataset using TabularDatasetFactory
-    # Data is located at:
-    # "https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv"
-    ds = TabularDatasetFactory.from_delimited_files(['https://automlsamplenotebookdata.blob.core.windows.net/automl-sample-notebook-data/bankmarketing_train.csv'])
-
-    # Calling the clean_data func
-    x, y = clean_data(ds)
-    
-    # TODO: Split data into train and test sets.
-    # Documentation: https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.train_test_split.html
-    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
 
     # Fitting the LR algorithm
     model = LogisticRegression(C=args.C, max_iter=args.max_iter).fit(x_train, y_train)
 
     accuracy = model.score(x_test, y_test)
     run.log("Accuracy", np.float(accuracy))
-
 
     os.makedirs('./outputs', exist_ok=True)
     joblib.dump(value=model, filename='./outputs/model.joblib')
