@@ -11,7 +11,7 @@ The dataset contains campaign data about prospective individuals for banks. Here
 We followed two different approaches. One through `hyperdrive` and another with `automl`. Through hyperdrive we tried to find best hyperparameters `c` and `max_iter` which we found `3.5430558109339505` and `169.0` respectively with `0.9153262518968134` accuracy from run id `HD_a323d13a-c6a7-4160-a5af-e8444f840933_23`. And with automl we found `VotingEnsemble` with `0.9161` best accuracy where run id is `AutoML_1c1181c8-53c7-4470-a7ca-6bed4153fdb2_35`.
 
 ## Pipeline
-![Diagram](Diagram.jpg?raw=true)
+![Pipeline Diagram](pipeline.jpg?raw=true)
 
 ## Scikit-learn Pipeline
 Scikit-learn pipeline is pretty straightforward and self-explanatory. For this we wrote a script called `train.py` where we defined a datastore with `TabularDatasetFactory` to read delimitted file. Then there was a `clean_data` function to
