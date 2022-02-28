@@ -96,6 +96,6 @@ In addition, the dataset is imbalanced as shown below.
 It's quite usual in real life to get an imbalanced data however the dataset should be as balanced as possible. To address this issue, some of techniques are given below.
 1.) Upsampling Minority Class  
 2.) Downsampling Majority Class  
-3.) Generate Synthetic Data
-4.) Combine Oversampling and Undersampling Techniques
-5.) Balanced Class Weight
+3.) Generate Synthetic Data  
+4.) Combine Oversampling and Undersampling Techniques  
+5.) Balanced Class Weight  
