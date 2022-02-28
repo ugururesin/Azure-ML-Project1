@@ -93,7 +93,7 @@ In addition, the dataset is imbalanced as shown below.
 
 ![labal_dist](label_distribution.png?raw=true)
 
-It's quite usual in real life to get an imbalanced data however the dataset should be as balanced as possible. To address this issue, some of techniques are given below.
+It's quite usual in real life to get an imbalanced data however the dataset should be as balanced as possible. To address this issue, some of techniques are given below.  
 1.) Upsampling Minority Class  
 2.) Downsampling Majority Class  
 3.) Generate Synthetic Data  
