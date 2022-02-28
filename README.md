@@ -117,4 +117,5 @@ It's quite usual in real life to get an imbalanced data however the dataset shou
 ## Proof of Compute Deletion
 You may also check the notebook!  
 ![delcompute](proof_of_compute_deletion.JPG?raw=true)
+![delcompute2](proof_of_compute_deletion2.JPG?raw=true)
 
