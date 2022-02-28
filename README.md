@@ -87,7 +87,7 @@ First of all, it should be noted that the accuries always be different due to ra
 
 
 ## Future Improvements
-In order to improve the performance metric (here AUC_weighted is used), further iterations would be conducted. To do achieve that, 'n_cross_validation'  and/or 'experiment_timeout_minutes' might be increased. However, it should be noted that there is a trade off between training cost (time and computation cost) and the performance metric. Thus, experiementations need to be conducted carefully. 
+In order to improve the performance metric (here AUC_weighted is used), further iterations would be conducted. To do achieve that, ```n_cross_validation```  and/or ```experiment_timeout_minutes``` might be increased. However, it should be noted that there is a trade off between training cost (time and computation cost) and the performance metric. Thus, experiementations need to be conducted carefully. 
 
 In addition, the dataset is imbalanced as shown below.
 
