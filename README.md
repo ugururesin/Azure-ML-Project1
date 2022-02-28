@@ -25,8 +25,14 @@ Scikit-learn pipeline is pretty straightforward and self-explanatory. For this w
 After completing the cleaning part, the data is splitted into training and test. As a classification algorithm `Logistic Regression` is used, then `c` and `max_iter` parameters were defined in order to experiment hyper parameters with hyperdrive. 
 
 As a parameter sampler, the `RandomParameterSampling` is used with the following parameters:  
-**C** :(0.01,0.1,1,5,20,100)  
-**max_iter** : (10,50,100)  
+```
+RandomParameterSampling(
+    {
+        '--C' : choice(0.01,0.1,1,5,20,100),
+        '--max_iter': choice(10,50,100)
+    }
+)
+```
 
 `RandomParameterSampling` provides faster sampling due to the fact that it does not require pre-specified values for its search space and can traverse randomly to find the optimal value which often finds the ideal one which leads to early termination.
 
@@ -38,7 +44,36 @@ The `BanditPolicy` is defined with evaluation_interval = 1, slack_factor= 0.1 in
 This pipeline yielded the following accuracy score: 0.9176024279210926
 
 ## AutoML
+In this approach, the models (there are several ML algorithms trained) and hyperparameters are generated automatically based on the following automl configuration:
+
+```
+automl_config = AutoMLConfig(
+    experiment_timeout_minutes=30,
+    task='classification',
+    enable_early_stopping = True,
+    primary_metric='AUC_weighted',
+    training_data=ds,
+    label_column_name='y',
+    enable_onnx_compatible_models=True,
+    n_cross_validations=3,
+    compute_target = compute_target)
+```
+
+**experiment_timeout_minutes**: Bir deneyin ne kadar süreceğini dakika olarak tanımlar. Burada 30 kullanıldı.
+
+**task**: Modelin 'classification' ya da 'regression' yapacağını belirtir.
+
+**primary_metric**: Defines the metric for the model performance. Here AUC is used.
+
+**label_column_name"**: Defines the dependent variable (label).
+
+**enable_onnx_compatible_models**: ONNX stands for 'Open Neural Network Exchange' that allows to deploy models in different frameworks and platforms.
+
+**n_cross_validation**: The number of cross validations to conduct. Here 3 is used. Therefore, metrics are calculated based on the average of 3 validation scores.
+
 Using `Automl` several algorithms are fitted and the **METRIC**s (the result of computing score on the fitted pipeline) are compared as shown in the table below.
+
+(Run details are available in the notebook)
 
 ![automl_table](automl_results.JPG?raw=true)
 
