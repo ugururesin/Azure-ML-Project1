@@ -84,3 +84,13 @@ Using `Automl` several algorithms are fitted and the **METRIC**s (the result of 
 | Automl | 0.9471 |
 
 First of all, it should be noted that the accuries always be different due to randomization in data sampling and fitting. Based on the results, the difference between Hyperdrive and Automl is worth to consider however it should be considered that the number of iterations was limited to due to time constraint. In general, 'Automl' is expected to yield better results especially in the case of the data is imbalanced.
+
+
+## Future Improvements
+In order to improve the performance metric (here AUC_weighted is used), further iterations would be conducted. To do achieve that, 'n_cross_validation'  and/or 'experiment_timeout_minutes' might be increased. However, it should be noted that there is a trade off between training cost (time and computation cost) and the performance metric. Thus, experiementations need to be conducted carefully. 
+
+In addition, the dataset is imbalanced as shown below.
+
+![labal_dist](label_distribution.png?raw=true)
+
+It's quite usual in real life to get an imbalanced data however the dataset should be as balanced as possible. To address this issue, some of techniques are given below.
