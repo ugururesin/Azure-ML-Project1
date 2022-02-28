@@ -38,17 +38,16 @@ RandomParameterSampling(
 
 The `BanditPolicy` is defined with evaluation_interval = 1, slack_factor= 0.1 in order to terminates all the models worse than the current best model based on the prmiary metrics.
 
-![hyperdrive1](HyperDrive_run1.JPG?raw=true)
-![hyperdrive2](HyperDrive_run1.JPG?raw=true)
+![hyperdrive1](results_hyperdrive.JPG?raw=true)
 
-This pipeline yielded the following accuracy score: 0.9176024279210926
+This pipeline yielded the following accuracy score: 0.91760243
 
 ## AutoML
 In this approach, the models (there are several ML algorithms trained) and hyperparameters are generated automatically based on the following automl configuration:
 
 ```
 automl_config = AutoMLConfig(
-    experiment_timeout_minutes=30,
+    experiment_timeout_minutes=15,
     task='classification',
     enable_early_stopping = True,
     primary_metric='AUC_weighted',
@@ -59,7 +58,7 @@ automl_config = AutoMLConfig(
     compute_target = compute_target)
 ```
 
-**experiment_timeout_minutes**: Defines how long an experiment will take, in minutes. 30 used here.
+**experiment_timeout_minutes**: Defines how long an experiment will take, in minutes. 15 used here.
 
 **task**: Specifies whether the model will 'classification' or 'regression'.
 
@@ -75,12 +74,12 @@ Using `Automl` several algorithms are fitted and the **METRIC**s (the result of 
 
 (Run details are available in the notebook)
 
-![automl_table](automl_results.JPG?raw=true)
+![automl_table](results_automl.JPG?raw=true)
 
 ## Pipeline comparison
 | Model | Accuracy |
 |-|-|
-| Hyperdrive | 0.9176 |
+| Hyperdrive | 0.91760243 |
 | Automl | 0.9471 |
 
 First of all, it should be noted that the accuries always be different due to randomization in data sampling and fitting. Based on the results, the difference between Hyperdrive and Automl is worth to consider however it should be considered that the number of iterations was limited to due to time constraint. In general, 'Automl' is expected to yield better results especially in the case of the data is imbalanced.
