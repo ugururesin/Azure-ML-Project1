@@ -76,11 +76,26 @@ Using `Automl` several algorithms are fitted and the **METRIC**s (the result of 
 
 ![automl_table](results_automl.JPG?raw=true)
 
+## AutoML Model Parameters
+The AutoML yielded the best model as a **VotingEnsemble** model with the **following parameters**:
+
+  * 'run_algorithm': 'VotingEnsemble'  
+  * 'ensembled_iterations': '[23, 0, 25, 1, 15, 21, 20]'  
+  * 'ensembled_algorithms': "['XGBoostClassifier', 'LightGBM', 'XGBoostClassifier', 'XGBoostClassifier', 'LightGBM', 'XGBoostClassifier', 'LogisticRegression']"  
+  * 'ensemble_weights': '[0.26666666666666666, 0.26666666666666666, 0.06666666666666667, 0.06666666666666667, 0.2, 0.06666666666666667, 0.06666666666666667]'  
+  * 'best_individual_pipeline_score': '0.9471770965872123'  
+  * 'best_individual_iteration': '23'  
+  * 'model_name': 'AutoML5540d998b26'  
+  * 'score': '0.948525333973904'
+
+As shown above, the model is an ensemble ML model of the following models 'XGBoostClassifier', 'LightGBM', 'XGBoostClassifier', 'XGBoostClassifier', 'LightGBM', 'XGBoostClassifier', 'LogisticRegression' with the following weightings 0.26666666666666666, 0.26666666666666666, 0.06666666666666667, 0.06666666666666667, 0.2, 0.06666666666666667, 0.06666666666666667 respectively.
+ 
+
 ## Pipeline comparison
 | Model | Accuracy |
 |-|-|
 | Hyperdrive | 0.91760243 |
-| Automl | 0.9471 |
+| Automl | 0.9485 |
 
 First of all, it should be noted that the accuries always be different due to randomization in data sampling and fitting. Based on the results, the difference between Hyperdrive and Automl is worth to consider however it should be considered that the number of iterations was limited to due to time constraint. In general, 'Automl' is expected to yield better results especially in the case of the data is imbalanced.
 
