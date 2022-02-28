@@ -98,3 +98,8 @@ It's quite usual in real life to get an imbalanced data however the dataset shou
 3.) Generate Synthetic Data  
 4.) Combine Oversampling and Undersampling Techniques  
 5.) Balanced Class Weight  
+
+## Proof of Compute Deletion
+You may also check the notebook!  
+![delcompute](proof_of_compute_deletion.JPG?raw=true)
+
