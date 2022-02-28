@@ -59,9 +59,9 @@ automl_config = AutoMLConfig(
     compute_target = compute_target)
 ```
 
-**experiment_timeout_minutes**: Bir deneyin ne kadar süreceğini dakika olarak tanımlar. Burada 30 kullanıldı.
+**experiment_timeout_minutes**: Defines how long an experiment will take, in minutes. 30 used here.
 
-**task**: Modelin 'classification' ya da 'regression' yapacağını belirtir.
+**task**: Specifies whether the model will 'classification' or 'regression'.
 
 **primary_metric**: Defines the metric for the model performance. Here AUC is used.
 
